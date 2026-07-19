@@ -30,7 +30,7 @@ const backgroundImages = [
     "https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif",
     "https://giphy.com/embed/pY8jLmZw0ElqvVeRH4/giphy.gif",
     "https://media.giphy.com/media/26AHONQ79FdWZhAIw/giphy.gif",
-    "https://giphy.com/embed/MDJ9IbxxvDUQM"
+    "https://giphy.com/embed/MDJ9IbxxvDUQM",
     "https://media.giphy.com/media/3o7TKoWXm3okO1kgHC/giphy.gif"
 ];
 
@@ -105,40 +105,28 @@ function renderCard() {
     noBtn.textContent = 'NO';
 
     // Evasion Logic for NO button
-    const evadeActions = ['teleport', 'shrink', 'swap'];
-
+    const funnyTexts = ['Nope!', 'Try again!', 'Too slow!', 'Catch me!', 'Nice try!', 'Missed!'];
+    
     const handleEvade = (e) => {
         e.preventDefault();
-
-        // Pick a random evade action
-        const action = evadeActions[Math.floor(Math.random() * evadeActions.length)];
-
-        if (action === 'teleport') {
-            const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-            const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-
-            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
-            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
-
-            noBtn.style.position = 'fixed';
-            noBtn.style.left = `${randomX}px`;
-            noBtn.style.top = `${randomY}px`;
-            noBtn.style.transform = 'none'; // reset previous transforms
-        } else if (action === 'shrink') {
-            const currentScale = noBtn.style.transform.includes('scale')
-                ? parseFloat(noBtn.style.transform.split('scale(')[1])
-                : 1;
-            const newScale = Math.max(0.3, currentScale - 0.2);
-            noBtn.style.transform = `scale(${newScale})`;
-        } else if (action === 'swap') {
-            // Swap flex order with YES button
-            if (noBtn.style.order === '-1') {
-                noBtn.style.order = '1';
-                yesBtn.style.order = '0';
-            } else {
-                noBtn.style.order = '-1';
-                yesBtn.style.order = '0';
-            }
+        
+        const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+        
+        const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+        const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${randomX}px`;
+        noBtn.style.top = `${randomY}px`;
+        
+        // Add a funny rotation
+        const randomRot = Math.floor(Math.random() * 360 - 180);
+        noBtn.style.transform = `rotate(${randomRot}deg)`;
+        
+        // 30% chance to change text
+        if (Math.random() > 0.7) {
+            noBtn.textContent = funnyTexts[Math.floor(Math.random() * funnyTexts.length)];
         }
     };
 

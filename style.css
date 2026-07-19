@@ -124,6 +124,7 @@ button {
     box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
     position: relative;
     z-index: 50;
+    transition: all 0.2s ease-out;
 }
 
 /* Finale Phase */
