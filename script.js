@@ -11,6 +11,20 @@ const questions = [
     "Will you marry me?"
 ];
 
+// Array of funny meme musics for each card
+const memeMusics = [
+    "https://www.myinstants.com/media/sounds/wii-shop-channel-music.mp3",
+    "https://www.myinstants.com/media/sounds/elevator-music.mp3",
+    "https://www.myinstants.com/media/sounds/jeopardy-theme_1.mp3",
+    "https://www.myinstants.com/media/sounds/monkeys-spinning-monkeys-kevin-macleod.mp3",
+    "https://www.myinstants.com/media/sounds/mii-channel-music.mp3",
+    "https://www.myinstants.com/media/sounds/curb-your-enthusiasm-theme-song.mp3",
+    "https://www.myinstants.com/media/sounds/sad-violin.mp3",
+    "https://www.myinstants.com/media/sounds/sneaky-snitch-kevin-macleod.mp3",
+    "https://www.myinstants.com/media/sounds/funny-running-sound-effect.mp3",
+    "https://www.myinstants.com/media/sounds/nani_O64N8o4.mp3"
+];
+
 // Placeholders for background memes
 const backgroundImages = [
     "https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif",
@@ -27,6 +41,7 @@ const finaleContainer = document.getElementById('finale-container');
 const bgSlider = document.getElementById('background-slider');
 const dingSound = document.getElementById('ding-sound');
 const romanticSong = document.getElementById('romantic-song');
+const memeAudio = document.getElementById('meme-audio');
 
 // Initialize App
 function init() {
@@ -53,6 +68,10 @@ function renderCard() {
         startFinale();
         return;
     }
+
+    // Play meme music for this card
+    memeAudio.src = memeMusics[currentQuestionIndex];
+    memeAudio.play().catch(e => console.log("Audio play prevented by browser"));
 
     const card = document.createElement('div');
     card.className = 'card';
@@ -144,6 +163,7 @@ function startFinale() {
     document.querySelector('.overlay').style.background = '#000';
     
     cardContainer.style.display = 'none';
+    memeAudio.pause(); // Stop meme music
     
     finaleContainer.classList.remove('hidden');
     // small delay to allow display block to apply before opacity transition
