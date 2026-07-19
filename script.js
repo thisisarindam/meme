@@ -28,7 +28,9 @@ const memeMusics = [
 // Placeholders for background memes
 const backgroundImages = [
     "https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif",
+    "https://giphy.com/embed/pY8jLmZw0ElqvVeRH4/giphy.gif",
     "https://media.giphy.com/media/26AHONQ79FdWZhAIw/giphy.gif",
+    "https://giphy.com/embed/MDJ9IbxxvDUQM"
     "https://media.giphy.com/media/3o7TKoWXm3okO1kgHC/giphy.gif"
 ];
 
@@ -53,7 +55,7 @@ function init() {
 function startBackgroundSlider() {
     let bgIndex = 0;
     bgSlider.style.backgroundImage = `url('${backgroundImages[bgIndex]}')`;
-    
+
     bgInterval = setInterval(() => {
         bgIndex = (bgIndex + 1) % backgroundImages.length;
         bgSlider.style.backgroundImage = `url('${backgroundImages[bgIndex]}')`;
@@ -63,7 +65,7 @@ function startBackgroundSlider() {
 // Render Card
 function renderCard() {
     cardContainer.innerHTML = ''; // Clear previous card
-    
+
     if (currentQuestionIndex >= questions.length) {
         startFinale();
         return;
@@ -75,7 +77,7 @@ function renderCard() {
     }
     currentMemeAudio = new Audio(memeMusics[currentQuestionIndex]);
     currentMemeAudio.loop = true;
-    
+
     // Attempt to play the audio
     const playPromise = currentMemeAudio.play();
     if (playPromise !== undefined) {
@@ -86,45 +88,45 @@ function renderCard() {
 
     const card = document.createElement('div');
     card.className = 'card';
-    
+
     const questionText = document.createElement('h2');
     questionText.textContent = questions[currentQuestionIndex];
-    
+
     const buttonsDiv = document.createElement('div');
     buttonsDiv.className = 'buttons';
-    
+
     const yesBtn = document.createElement('button');
     yesBtn.className = 'btn-yes';
     yesBtn.textContent = 'YES';
     yesBtn.onclick = handleYesClick;
-    
+
     const noBtn = document.createElement('button');
     noBtn.className = 'btn-no';
     noBtn.textContent = 'NO';
-    
+
     // Evasion Logic for NO button
     const evadeActions = ['teleport', 'shrink', 'swap'];
-    
+
     const handleEvade = (e) => {
         e.preventDefault();
-        
+
         // Pick a random evade action
         const action = evadeActions[Math.floor(Math.random() * evadeActions.length)];
-        
+
         if (action === 'teleport') {
             const maxX = window.innerWidth - noBtn.offsetWidth - 20;
             const maxY = window.innerHeight - noBtn.offsetHeight - 20;
-            
+
             const randomX = Math.max(20, Math.floor(Math.random() * maxX));
             const randomY = Math.max(20, Math.floor(Math.random() * maxY));
-            
+
             noBtn.style.position = 'fixed';
             noBtn.style.left = `${randomX}px`;
             noBtn.style.top = `${randomY}px`;
             noBtn.style.transform = 'none'; // reset previous transforms
         } else if (action === 'shrink') {
-            const currentScale = noBtn.style.transform.includes('scale') 
-                ? parseFloat(noBtn.style.transform.split('scale(')[1]) 
+            const currentScale = noBtn.style.transform.includes('scale')
+                ? parseFloat(noBtn.style.transform.split('scale(')[1])
                 : 1;
             const newScale = Math.max(0.3, currentScale - 0.2);
             noBtn.style.transform = `scale(${newScale})`;
@@ -139,17 +141,17 @@ function renderCard() {
             }
         }
     };
-    
+
     noBtn.addEventListener('mouseenter', handleEvade);
-    noBtn.addEventListener('touchstart', handleEvade, {passive: false});
+    noBtn.addEventListener('touchstart', handleEvade, { passive: false });
     noBtn.addEventListener('click', handleEvade); // Just in case they manage to click it
 
     buttonsDiv.appendChild(yesBtn);
     buttonsDiv.appendChild(noBtn);
-    
+
     card.appendChild(questionText);
     card.appendChild(buttonsDiv);
-    
+
     cardContainer.appendChild(card);
 }
 
@@ -157,10 +159,10 @@ function renderCard() {
 function handleYesClick() {
     // Play ding sound (if audio is loaded, handle play promise to avoid errors)
     dingSound.play().catch(e => console.log("Audio play prevented by browser"));
-    
+
     const currentCard = cardContainer.querySelector('.card');
     currentCard.classList.add('swipe-out');
-    
+
     setTimeout(() => {
         currentQuestionIndex++;
         renderCard();
@@ -172,12 +174,12 @@ function startFinale() {
     clearInterval(bgInterval);
     bgSlider.style.backgroundImage = 'none';
     document.querySelector('.overlay').style.background = '#000';
-    
+
     cardContainer.style.display = 'none';
     if (currentMemeAudio) {
         currentMemeAudio.pause(); // Stop meme music
     }
-    
+
     finaleContainer.classList.remove('hidden');
     // small delay to allow display block to apply before opacity transition
     setTimeout(() => {
@@ -186,7 +188,7 @@ function startFinale() {
 
     // Play romantic song
     romanticSong.play().catch(e => console.log("Audio play prevented by browser"));
-    
+
     // Start particle generator
     setInterval(createParticle, 200);
 }
@@ -197,16 +199,16 @@ function createParticle() {
     const particle = document.createElement('div');
     particle.className = 'particle';
     particle.textContent = particleTypes[Math.floor(Math.random() * particleTypes.length)];
-    
+
     // Random position and duration
     particle.style.left = Math.random() * 100 + 'vw';
     particle.style.animationDuration = Math.random() * 3 + 2 + 's'; // 2 to 5 seconds
-    
+
     // Random size
     particle.style.fontSize = Math.random() * 1.5 + 1 + 'rem'; // 1rem to 2.5rem
-    
+
     document.body.appendChild(particle);
-    
+
     // Remove particle after animation ends
     setTimeout(() => {
         particle.remove();
