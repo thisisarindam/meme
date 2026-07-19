@@ -13,16 +13,13 @@ const questions = [
 
 // Array of funny meme musics for each card
 const memeMusics = [
-    "https://www.myinstants.com/media/sounds/wii-shop-channel-music.mp3",
-    "https://www.myinstants.com/media/sounds/elevator-music.mp3",
-    "https://www.myinstants.com/media/sounds/jeopardy-theme_1.mp3",
-    "https://www.myinstants.com/media/sounds/monkeys-spinning-monkeys-kevin-macleod.mp3",
-    "https://www.myinstants.com/media/sounds/mii-channel-music.mp3",
-    "https://www.myinstants.com/media/sounds/curb-your-enthusiasm-theme-song.mp3",
-    "https://www.myinstants.com/media/sounds/sad-violin.mp3",
-    "https://www.myinstants.com/media/sounds/sneaky-snitch-kevin-macleod.mp3",
-    "https://www.myinstants.com/media/sounds/funny-running-sound-effect.mp3",
-    "https://www.myinstants.com/media/sounds/nani_O64N8o4.mp3"
+    "sources/apalonbeats-phonk-tiktok-instagram-512934.mp3",
+    "sources/hitslab-phonk-phonk-music-340264.mp3",
+    "sources/octosound-phonk-377178.mp3",
+    "sources/saavane-free-video-game-edit-music-390818.mp3",
+    "sources/sosin-phonk-phonk-music-522862.mp3",
+    "sources/sosin-phonk-tiktok-instagram-youtube-music-455335.mp3",
+    "sources/the_mountain-phonk-567414.mp3"
 ];
 
 // Placeholders for background memes
@@ -75,7 +72,7 @@ function renderCard() {
     if (currentMemeAudio) {
         currentMemeAudio.pause();
     }
-    currentMemeAudio = new Audio(memeMusics[currentQuestionIndex]);
+    currentMemeAudio = new Audio(memeMusics[currentQuestionIndex % memeMusics.length]);
     currentMemeAudio.loop = true;
 
     // Attempt to play the audio
