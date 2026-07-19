@@ -41,7 +41,7 @@ const finaleContainer = document.getElementById('finale-container');
 const bgSlider = document.getElementById('background-slider');
 const dingSound = document.getElementById('ding-sound');
 const romanticSong = document.getElementById('romantic-song');
-const memeAudio = document.getElementById('meme-audio');
+let currentMemeAudio = null;
 
 // Initialize App
 function init() {
@@ -70,8 +70,19 @@ function renderCard() {
     }
 
     // Play meme music for this card
-    memeAudio.src = memeMusics[currentQuestionIndex];
-    memeAudio.play().catch(e => console.log("Audio play prevented by browser"));
+    if (currentMemeAudio) {
+        currentMemeAudio.pause();
+    }
+    currentMemeAudio = new Audio(memeMusics[currentQuestionIndex]);
+    currentMemeAudio.loop = true;
+    
+    // Attempt to play the audio
+    const playPromise = currentMemeAudio.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(e => {
+            console.log("Audio play prevented or failed to load: ", e);
+        });
+    }
 
     const card = document.createElement('div');
     card.className = 'card';
@@ -163,7 +174,9 @@ function startFinale() {
     document.querySelector('.overlay').style.background = '#000';
     
     cardContainer.style.display = 'none';
-    memeAudio.pause(); // Stop meme music
+    if (currentMemeAudio) {
+        currentMemeAudio.pause(); // Stop meme music
+    }
     
     finaleContainer.classList.remove('hidden');
     // small delay to allow display block to apply before opacity transition
