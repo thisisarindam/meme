@@ -30,11 +30,11 @@
 **10 Question Ideas:**
 1. Ready for a serious question?
 2. Am I the funniest person you know?
-3. Do you look cute when mad?
+3. Do you overreact when mad?
 4. Will you share your food forever?
-5. Let me pick movies 10% of the time?
-6. Prepared for bad puns?
+5. Let me pick movies 100% of the time?
+6. Prepared for my bad moods?
 7. Are my hugs mandatory?
-8. Will you be my emergency contact?
-9. Ready to be stuck with me?
+8. Will you be my forever emergency contact?
+9. Ready to be stuck with me forever?
 10. Will you marry me?
