@@ -171,8 +171,11 @@ function startFinale() {
         finaleContainer.classList.add('visible');
     }, 50);
 
-    // Play romantic song
-    romanticSong.play().catch(e => console.log("Audio play prevented by browser"));
+    // Play finale video
+    const finaleVideo = document.getElementById('finale-video');
+    if (finaleVideo) {
+        finaleVideo.play().catch(e => console.log("Video play prevented by browser"));
+    }
 
     // Start particle generator
     setInterval(createParticle, 200);
