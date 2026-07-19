@@ -214,3 +214,17 @@ button {
         transform: translateY(110vh) rotate(360deg);
     }
 }
+
+/* Copyright Overlay */
+.copyright {
+    position: fixed;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    z-index: 100;
+    pointer-events: none;
+    font-family: 'Inter', sans-serif;
+}
